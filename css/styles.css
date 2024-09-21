@@ -22,10 +22,28 @@ h1 {
     box-shadow: 0 0 25px greenyellow; /* Sombra verde */
 }
 
+#titulo {
+    font-family: 'Impact', sans-serif;
+}
+
+#nivel {
+    color: greenyellow;
+}
+
 #principal {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100vh;
+}
+
+#opcao {
+    font-size: 15px;
+    font-weight: bold;
+    padding: 5px 15px;
+    text-align: center;
+    border-radius: 5px;
+    background-color: white;
+    cursor: pointer;
 }

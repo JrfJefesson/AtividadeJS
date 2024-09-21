@@ -5,12 +5,25 @@
         <meta charset="UTF-8">
         <title>Jogo da memória</title>
         <link rel="stylesheet" href="css/styles.css">
+        <script src="js/script.js"></script>
     <body>
         <div id = "principal">
-            <h1 style="font-family: 'Impact', sans-serif;">Jogo da memória</h1>
-            <button class="btn">2 Jogadores</button>
-            <br><br>
-            <button class="btn">Jogar contra o computador</button>
+            <h1 id = "titulo">Jogo da memória</h1>
+            <form>
+                <h2 id="nivel">Dificuldade do jogo:</h2>
+                <select id="opcao">
+                  <option value="2x3"selected>Fácil</option>
+                  <option value="3x4">Difícil</option>
+                  <option value="4x5">Jogar contra o computador</option>
+                </select>
+                <br><br>
+                <input class="btn" type="submit" value="Jogar" />
+              </form>
+            
         </div>
+
+
+
+        
     </body>
 </html>
