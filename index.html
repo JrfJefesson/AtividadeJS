@@ -12,18 +12,23 @@
             <form>
                 <h2 id="nivel">Dificuldade do jogo:</h2>
                 <select id="opcao">
-                  <option value="2x3"selected>Fácil</option>
-                  <option value="3x4">Difícil</option>
-                  <option value="4x5">Jogar contra o computador</option>
+                  <option value="7p"selected>Fácil</option>
+                  <option value="14p">Difícil</option>
+                  <option value="7pcom">Jogar contra o computador (Fácil)</option>
+                  <option value="14pcom">Jogar contra o computador (Díficil)</option>
                 </select>
                 <br><br>
-                <input class="btn" type="submit" value="Jogar" />
+                <input class="btn" type="button" value="Jogar" onclick="iniciarJogo()"/>
               </form>
             
         </div>
 
 
+        <!-- Div oculta que será exibida depois que o jogo começar -->
+        <div id="novo-conteudo" style="display:none;">
+            <h2 id = 'titulo1'>Jogo da memória</h2>
 
+        </div>
         
     </body>
 </html>
