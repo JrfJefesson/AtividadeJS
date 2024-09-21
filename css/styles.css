@@ -51,3 +51,38 @@ body {
 #titulo1 {
     color: greenyellow;
 }
+
+
+.memory-game {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.carta {
+    position: relative; /* Define o contêiner para o posicionamento absoluto */
+    width: 100px; /* Defina a largura da carta */
+    height: 140px; /* Defina a altura da carta */
+    margin: 10px; /* Espaçamento entre as cartas */
+}
+
+.carta img {
+    position: absolute; /* Faz com que as imagens sejam posicionadas absolutamente dentro do contêiner */
+    width: 100%; /* As imagens ocupam toda a largura do contêiner */
+    height: 100%; /* As imagens ocupam toda a altura do contêiner */
+    top: 0; /* Posiciona a imagem na parte superior do contêiner */
+    left: 0; /* Posiciona a imagem na parte esquerda do contêiner */
+    transition: transform 0.5s; /* Adiciona uma transição suave ao virar a carta */
+}
+
+.carta .verso {
+    transform: rotateY(180deg); /* Vira a imagem do verso, se necessário */
+}
+
+/* Quando a carta for virada */
+.carta.virada img.frente {
+    transform: rotateY(180deg); /* Vira a imagem da frente */
+}
+
+.carta.virada img.verso {
+    transform: rotateY(0deg); /* Vira a imagem do verso */
+}

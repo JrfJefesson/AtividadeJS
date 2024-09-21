@@ -14,7 +14,14 @@ function iniciarJogo() {
     // Verificar qual dificuldade foi escolhida
     if (dificuldade === '7p') {
         console.log('Jogo fácil selecionado');
-        document.getElementById('game-facil').style.display = 'block';    
+
+        document.getElementById('game-facil').style.display = 'block';  
+        const cartas = document.querySelectorAll('.carta');
+        cartas.forEach(carta => {
+            carta.addEventListener('click', () => {
+                virarCarta(carta);
+            });
+        });
     } else if (dificuldade === '14p') {
         console.log('Jogo difícil selecionado');
         document.getElementById('game-dificil').style.display = 'block';    
@@ -25,4 +32,9 @@ function iniciarJogo() {
         console.log('Jogo contra o computador (Difícil) selecionado');
         document.getElementById('game-dificil-pc').style.display = 'block';   
     }
+}
+
+// Mova a função virarCarta para fora do iniciarJogo
+function virarCarta(carta) {
+    carta.classList.toggle('virada');
 }
