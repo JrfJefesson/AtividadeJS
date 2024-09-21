@@ -102,3 +102,10 @@ body {
     font-weight: bold;   /* Peso da fonte */
     text-align: center;  /* Centralizar texto */
 }
+
+#cronometro {
+    color: greenyellow; /* Cor do texto */
+    font-size: 24px;   /* Tamanho da fonte */
+    text-align: center; /* Centralizar texto */
+    margin-top: 20px;  /* Espaçamento acima do cronômetro */
+}
