@@ -95,3 +95,10 @@ body {
 .carta.virada .verso {
     transform: rotateY(180deg); /* Esconde o verso */
 }
+
+#nome-jogador {
+    color: greenyellow; /* Cor do texto */
+    font-size: 24px;    /* Tamanho da fonte */
+    font-weight: bold;   /* Peso da fonte */
+    text-align: center;  /* Centralizar texto */
+}
