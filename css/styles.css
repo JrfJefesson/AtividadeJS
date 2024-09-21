@@ -56,6 +56,9 @@ body {
 .memory-game {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center; /* Centraliza as cartas */
+    max-width: 800px; /* Largura máxima para 14 cartas */
+    margin: auto; /* Centraliza o tabuleiro */
 }
 
 .carta {
@@ -63,26 +66,32 @@ body {
     width: 100px; /* Defina a largura da carta */
     height: 140px; /* Defina a altura da carta */
     margin: 10px; /* Espaçamento entre as cartas */
+    cursor: pointer;
 }
 
 .carta img {
-    position: absolute; /* Faz com que as imagens sejam posicionadas absolutamente dentro do contêiner */
-    width: 100%; /* As imagens ocupam toda a largura do contêiner */
-    height: 100%; /* As imagens ocupam toda a altura do contêiner */
-    top: 0; /* Posiciona a imagem na parte superior do contêiner */
-    left: 0; /* Posiciona a imagem na parte esquerda do contêiner */
-    transition: transform 0.5s; /* Adiciona uma transição suave ao virar a carta */
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    transition: transform 0.5s;
+    backface-visibility: hidden; /* Impede a visualização da parte de trás */
 }
 
 .carta .verso {
-    transform: rotateY(180deg); /* Vira a imagem do verso, se necessário */
+    transform: rotateY(0deg); /* O verso fica virado para o jogador */
 }
 
-/* Quando a carta for virada */
-.carta.virada img.frente {
-    transform: rotateY(180deg); /* Vira a imagem da frente */
+.carta .frente {
+    transform: rotateY(180deg); /* A frente fica virada para trás */
 }
 
-.carta.virada img.verso {
-    transform: rotateY(0deg); /* Vira a imagem do verso */
+/* Quando a carta é virada */
+.carta.virada .frente {
+    transform: rotateY(0deg); /* Mostra a frente */
+}
+
+.carta.virada .verso {
+    transform: rotateY(180deg); /* Esconde o verso */
 }

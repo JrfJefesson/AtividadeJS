@@ -22,6 +22,11 @@ function iniciarJogo() {
                 virarCarta(carta);
             });
         });
+
+
+
+
+
     } else if (dificuldade === '14p') {
         console.log('Jogo difícil selecionado');
         document.getElementById('game-dificil').style.display = 'block';    
@@ -37,4 +42,11 @@ function iniciarJogo() {
 // Mova a função virarCarta para fora do iniciarJogo
 function virarCarta(carta) {
     carta.classList.toggle('virada');
+}
+
+function virarCarta(carta) {
+    // Adiciona a classe 'virada' se a carta ainda não estiver virada
+    if (!carta.classList.contains('virada')) {
+        carta.classList.add('virada'); // Adiciona a classe para girar a carta
+    }
 }
