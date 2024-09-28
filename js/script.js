@@ -203,7 +203,7 @@ function atualizarCronometro() {
         }
     }
 
-    if (tempoRestante <= 0) {
+    if (tempoRestante === 0) {
         clearInterval(cronometroInterval);
         finalizarJogo();
     }
@@ -246,16 +246,30 @@ function salvarPontuacao() {
 }
 
 function reiniciarJogo() {
+    console.log('Reiniciando o jogo...'); // Para verificar se a função está sendo chamada
+
     // Oculta as áreas do jogo
-    document.getElementById('ranking-container').style.display = 'none';
-    document.getElementById('game-facil').style.display = 'none';
-    document.getElementById('game-dificil').style.display = 'none';
-    document.getElementById('game-facil-pc').style.display = 'none';
+    if (document.getElementById('ranking-container')) {
+        document.getElementById('ranking-container').style.display = 'none';
+    }
+    if (document.getElementById('game-facil')) {
+        document.getElementById('game-facil').style.display = 'none';
+    }
+    if (document.getElementById('game-dificil')) {
+        document.getElementById('game-dificil').style.display = 'none';
+    }
+    if (document.getElementById('game-pc')) {
+        document.getElementById('game-pc').style.display = 'none';
+    }
+    if (document.getElementById('nome-jogador')) {
+        document.getElementById('nome-jogador').style.display = 'none';
+    }
 
     // Mostra a tela inicial novamente
-    document.getElementById('principal').style.display = 'block';
-
-    // Limpa o nome do jogador
+    if (document.getElementById('principal')) {
+        document.getElementById('principal').style.display = 'flex';
+    }
+    tempoRestante = -1;
     nomeJogador = null;
 
     // Reinicia as variáveis do jogo, se necessário
