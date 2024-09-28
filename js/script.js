@@ -9,6 +9,8 @@ let cartasDificil; // Para armazenar todas as cartas do modo difícil
 let pontuacao = 0; // Variável para armazenar a pontuação
 
 function iniciarJogo() {
+    document.getElementById('ranking-container').style.display = 'block';
+    atualizarRanking();
     // Somente pedir o nome do jogador se ainda não tiver sido definido
     if (!nomeJogador) {
         nomeJogador = prompt("Digite seu nome:");
@@ -18,7 +20,7 @@ function iniciarJogo() {
 
     // Esconder os elementos atuais
     document.getElementById('principal').style.display = 'none';
-
+    
     // Capturar o valor selecionado no campo <select>
     const dificuldade = document.getElementById('opcao').value;
 
@@ -140,6 +142,7 @@ function virarCarta(carta) {
                 setTimeout(() => {
                     calcularPontuacao(); // Calcula a pontuação antes de finalizar
                     alert("Você ganhou! Pontuação: " + pontuacao);
+                    atualizarRanking();
                     if (confirm("Deseja jogar novamente?")) {
                         iniciarJogo(); // Reinicia o jogo
                     }
@@ -163,6 +166,7 @@ function calcularPontuacao() {
     } else if (document.getElementById('game-dificil').style.display === 'block') {
         pontuacao = tempoRestante * 15; // 15 pontos por segundo
     }
+    salvarPontuacao();
 }
 
 function embaralharCartas(cartas) {
@@ -209,4 +213,25 @@ function finalizarJogo() {
     if (confirm("Deseja jogar novamente?")) {
         iniciarJogo(); // Reinicia o jogo
     }
+}
+
+function atualizarRanking() {
+    const ranking = JSON.parse(localStorage.getItem('ranking')) || [];
+    const rankingList = document.getElementById('ranking-list');
+    rankingList.innerHTML = ''; // Limpa a lista antes de adicionar os novos itens
+
+    ranking.forEach(item => {
+        const li = document.createElement('li');
+        li.textContent = `${item.nome}: ${item.pontuacao}`; // Formata a pontuação
+        rankingList.appendChild(li); // Adiciona o item à lista
+    });
+}
+
+function salvarPontuacao() {
+    const ranking = JSON.parse(localStorage.getItem('ranking')) || [];
+    ranking.push({ nome: nomeJogador, pontuacao: pontuacao }); // Adiciona nova pontuação
+
+    // Ordena o ranking em ordem decrescente e mantém apenas as 20 maiores pontuações
+    ranking.sort((a, b) => b.pontuacao - a.pontuacao);
+    localStorage.setItem('ranking', JSON.stringify(ranking.slice(0, 20))); // Mantém as 20 melhores pontuações
 }

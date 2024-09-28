@@ -153,3 +153,30 @@ body {
     transform: rotateY(180deg); /* Esconde o verso */
 }
 
+#ranking-container {
+    position: absolute; /* Posiciona o ranking em relação ao contêiner pai */
+    top: 50px; /* Ajuste conforme necessário */
+    right: 20px; /* Ajuste conforme necessário */
+    background-color: rgba(0, 0, 0, 0.7); /* Fundo semi-transparente */
+    padding: 10px;
+    border-radius: 8px; /* Bordas arredondadas */
+    color: white; /* Cor do texto */
+}
+
+#ranking-list {
+    list-style-type: none; /* Remove marcadores */
+    padding: 0; /* Remove padding */
+}
+
+#ranking-list li {
+    color: greenyellow; /* Cor dos itens do ranking */
+    margin: 5px 0; /* Espaçamento entre os itens */
+}
+
+#rank-titulo {
+    color: greenyellow;
+}
+
+#ranking-container {
+    display: none; /* Oculta o contêiner do ranking inicialmente */
+}
