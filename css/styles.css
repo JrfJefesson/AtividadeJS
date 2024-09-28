@@ -103,7 +103,7 @@ body {
     text-align: center;  /* Centralizar texto */
 }
 
-#cronometro {
+#cronometro, #cronometro-dificil {
     color: greenyellow; /* Cor do texto */
     font-size: 24px;   /* Tamanho da fonte */
     text-align: center; /* Centralizar texto */

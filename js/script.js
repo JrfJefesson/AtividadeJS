@@ -2,7 +2,7 @@ let primeiraCarta = null; // Para armazenar a primeira carta virada
 let bloqueio = false; // Para evitar múltiplos cliques enquanto as cartas estão viradas
 let paresEncontrados = 0; // Para contar os pares encontrados
 let nomeJogador = ''; // Variável global para armazenar o nome do jogador
-let tempoRestante = 60; // Tempo em segundos
+let tempoRestante = 0; // Tempo em segundos
 let cronometroInterval; // Para armazenar o intervalo do cronômetro
 let cartasFacil; // Para armazenar todas as cartas do modo fácil
 let cartasDificil; // Para armazenar todas as cartas do modo difícil
@@ -47,7 +47,13 @@ function iniciarJogo() {
 
     } else if (dificuldade === '14p') {
         console.log('Jogo difícil selecionado');
-        document.getElementById('game-dificil').style.display = 'block';    
+        tempoRestante = 90; // Altera o tempo para 90 segundos
+        document.getElementById('cronometro-dificil').textContent = tempoRestante;
+
+        // Iniciar o cronômetro
+        cronometroInterval = setInterval(atualizarCronometro, 1000);
+        
+        document.getElementById('game-dificil').style.display = 'block'; 
 
         cartasDificil = document.querySelectorAll('.carta-dificil'); // Seleciona todas as cartas do modo difícil
 
@@ -168,9 +174,18 @@ function totalPares() {
     return (cartasFacil ? cartasFacil.length : 0) / 2 + (cartasDificil ? cartasDificil.length : 0) / 2; // Conta os pares
 }
 
+
 function atualizarCronometro() {
     tempoRestante--;
-    document.getElementById('cronometro').textContent = tempoRestante;
+
+    // Atualiza o cronômetro dependendo da dificuldade
+    if (tempoRestante >= 0) {
+        if (document.getElementById('game-facil').style.display === 'block') {
+            document.getElementById('cronometro').textContent = tempoRestante;
+        } else if (document.getElementById('game-dificil').style.display === 'block') {
+            document.getElementById('cronometro-dificil').textContent = tempoRestante;
+        }
+    }
 
     if (tempoRestante <= 0) {
         clearInterval(cronometroInterval);
