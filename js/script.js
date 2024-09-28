@@ -6,14 +6,15 @@ let tempoRestante = 0; // Tempo em segundos
 let cronometroInterval; // Para armazenar o intervalo do cronômetro
 let cartasFacil; // Para armazenar todas as cartas do modo fácil
 let cartasDificil; // Para armazenar todas as cartas do modo difícil
+let pontuacao = 0; // Variável para armazenar a pontuação
 
 function iniciarJogo() {
     // Somente pedir o nome do jogador se ainda não tiver sido definido
     if (!nomeJogador) {
         nomeJogador = prompt("Digite seu nome:");
     }
-    
-    document.getElementById('nome-jogador').textContent = "Jogador: " + nomeJogador;    
+
+    document.getElementById('nome-jogador').textContent = "Jogador: " + nomeJogador;
 
     // Esconder os elementos atuais
     document.getElementById('principal').style.display = 'none';
@@ -36,8 +37,8 @@ function iniciarJogo() {
 
         // Iniciar o cronômetro
         cronometroInterval = setInterval(atualizarCronometro, 1000);
-        document.getElementById('game-facil').style.display = 'block';  
-        
+        document.getElementById('game-facil').style.display = 'block';
+
         cartasFacil = document.querySelectorAll('.carta'); // Seleciona todas as cartas do modo fácil
 
         // Adiciona evento de clique nas cartas do modo fácil
@@ -47,13 +48,13 @@ function iniciarJogo() {
 
     } else if (dificuldade === '14p') {
         console.log('Jogo difícil selecionado');
-        tempoRestante = 90; // Altera o tempo para 90 segundos
+        tempoRestante = 120; // Altera o tempo para 90 segundos
         document.getElementById('cronometro-dificil').textContent = tempoRestante;
 
         // Iniciar o cronômetro
         cronometroInterval = setInterval(atualizarCronometro, 1000);
         
-        document.getElementById('game-dificil').style.display = 'block'; 
+        document.getElementById('game-dificil').style.display = 'block';
 
         cartasDificil = document.querySelectorAll('.carta-dificil'); // Seleciona todas as cartas do modo difícil
 
@@ -65,7 +66,7 @@ function iniciarJogo() {
     } else if (dificuldade === '7pcom') {
         console.log('Jogo contra o computador (Fácil) selecionado');
         document.getElementById('game-facil-pc').style.display = 'block';    
-    } 
+    }
 }
 
 function resetarCartas() {
@@ -104,6 +105,7 @@ function resetarCartas() {
         paresEncontrados = 0; // Reinicia o contador de pares
         primeiraCarta = null; // Reinicia a carta virada
         bloqueio = false; // Libera cliques novamente
+        pontuacao = 0; // Reseta a pontuação
     }, 500); // Pequeno atraso para garantir que o reset visual ocorra antes do embaralhamento
 }
 
@@ -136,7 +138,8 @@ function virarCarta(carta) {
             if (paresEncontrados === totalPares()) {
                 // Finaliza o jogo
                 setTimeout(() => {
-                    alert("Parabéns! Você encontrou todos os pares!");
+                    calcularPontuacao(); // Calcula a pontuação antes de finalizar
+                    alert("Você ganhou! Pontuação: " + pontuacao);
                     if (confirm("Deseja jogar novamente?")) {
                         iniciarJogo(); // Reinicia o jogo
                     }
@@ -151,6 +154,14 @@ function virarCarta(carta) {
                 bloqueio = false; // Libera novos cliques
             }, 1000); // Tempo em milissegundos (1 segundo)
         }
+    }
+}
+
+function calcularPontuacao() {
+    if (document.getElementById('game-facil').style.display === 'block') {
+        pontuacao = tempoRestante * 10; // 10 pontos por segundo
+    } else if (document.getElementById('game-dificil').style.display === 'block') {
+        pontuacao = tempoRestante * 15; // 15 pontos por segundo
     }
 }
 
@@ -174,7 +185,6 @@ function totalPares() {
     return (cartasFacil ? cartasFacil.length : 0) / 2 + (cartasDificil ? cartasDificil.length : 0) / 2; // Conta os pares
 }
 
-
 function atualizarCronometro() {
     tempoRestante--;
 
@@ -194,25 +204,9 @@ function atualizarCronometro() {
 }
 
 function finalizarJogo() {
-    clearInterval(cronometroInterval);
-    alert("O tempo acabou! O jogo terminou.");
-    document.getElementById('cronometro').textContent = "Tempo Esgotado!";
-
-    // Desabilitar clique nas cartas após o tempo acabar
-    if (cartasFacil) {
-        cartasFacil.forEach(carta => {
-            carta.removeEventListener('click', handleCartaClick);
-        });
-    }
-
-    if (cartasDificil) {
-        cartasDificil.forEach(carta => {
-            carta.removeEventListener('click', handleCartaClick);
-        });
-    }
-
-    // Oferecer opção de recomeçar
+    clearInterval(cronometroInterval); // Para o cronômetro
+    alert("Você perdeu! O tempo acabou.");
     if (confirm("Deseja jogar novamente?")) {
-        iniciarJogo(); // Reinicia o jogo sem pedir o nome novamente
+        iniciarJogo(); // Reinicia o jogo
     }
 }
