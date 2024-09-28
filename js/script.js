@@ -4,7 +4,8 @@ let paresEncontrados = 0; // Para contar os pares encontrados
 let nomeJogador = ''; // Variável global para armazenar o nome do jogador
 let tempoRestante = 60; // Tempo em segundos
 let cronometroInterval; // Para armazenar o intervalo do cronômetro
-let cartas; // Para armazenar todas as cartas
+let cartasFacil; // Para armazenar todas as cartas do modo fácil
+let cartasDificil; // Para armazenar todas as cartas do modo difícil
 
 function iniciarJogo() {
     // Somente pedir o nome do jogador se ainda não tiver sido definido
@@ -23,8 +24,6 @@ function iniciarJogo() {
     // Esconder todos os tabuleiros
     document.getElementById('game-facil').style.display = 'none';
     document.getElementById('game-dificil').style.display = 'none';
-    document.getElementById('game-facil-pc').style.display = 'none';
-    document.getElementById('game-dificil-pc').style.display = 'none';
 
     // Resetar as cartas ao iniciar um novo jogo
     resetarCartas();
@@ -38,33 +37,64 @@ function iniciarJogo() {
         // Iniciar o cronômetro
         cronometroInterval = setInterval(atualizarCronometro, 1000);
         document.getElementById('game-facil').style.display = 'block';  
+        
+        cartasFacil = document.querySelectorAll('.carta'); // Seleciona todas as cartas do modo fácil
+
+        // Adiciona evento de clique nas cartas do modo fácil
+        cartasFacil.forEach(carta => {
+            carta.addEventListener('click', handleCartaClick);
+        });
+
     } else if (dificuldade === '14p') {
         console.log('Jogo difícil selecionado');
         document.getElementById('game-dificil').style.display = 'block';    
+
+        cartasDificil = document.querySelectorAll('.carta-dificil'); // Seleciona todas as cartas do modo difícil
+
+        // Adiciona evento de clique nas cartas do modo difícil
+        cartasDificil.forEach(carta => {
+            carta.addEventListener('click', handleCartaClick);
+        });
+
     } else if (dificuldade === '7pcom') {
         console.log('Jogo contra o computador (Fácil) selecionado');
         document.getElementById('game-facil-pc').style.display = 'block';    
-    } else if (dificuldade === '14pcom') {
-        console.log('Jogo contra o computador (Difícil) selecionado');
-        document.getElementById('game-dificil-pc').style.display = 'block';   
-    }
+    } 
 }
 
 function resetarCartas() {
-    cartas = document.querySelectorAll('.carta');
-    
-    // Remove o estado de 'virada' de todas as cartas e remove temporariamente os event listeners
-    cartas.forEach(carta => {
-        carta.classList.remove('virada'); // Volta a imagem de verso
-        carta.removeEventListener('click', handleCartaClick); // Remove o evento para prevenir cliques durante o reset
-    });
+    // Reseta as cartas do modo fácil
+    if (cartasFacil) {
+        cartasFacil.forEach(carta => {
+            carta.classList.remove('virada'); // Volta a imagem de verso
+            carta.removeEventListener('click', handleCartaClick); // Remove o evento para prevenir cliques durante o reset
+        });
+    }
+
+    // Reseta as cartas do modo difícil
+    if (cartasDificil) {
+        cartasDificil.forEach(carta => {
+            carta.classList.remove('virada'); // Volta a imagem de verso
+            carta.removeEventListener('click', handleCartaClick); // Remove o evento para prevenir cliques durante o reset
+        });
+    }
 
     // Após todas serem resetadas, embaralha as cartas e habilita o clique
     setTimeout(() => {
-        embaralharCartas(cartas); // Embaralhar as cartas novamente
-        cartas.forEach(carta => {
-            carta.addEventListener('click', handleCartaClick); // Habilitar o clique novamente
-        });
+        if (cartasFacil) {
+            embaralharCartas(cartasFacil); // Embaralha as cartas do modo fácil
+            cartasFacil.forEach(carta => {
+                carta.addEventListener('click', handleCartaClick); // Habilita o clique novamente
+            });
+        }
+
+        if (cartasDificil) {
+            embaralharCartas(cartasDificil); // Embaralha as cartas do modo difícil
+            cartasDificil.forEach(carta => {
+                carta.addEventListener('click', handleCartaClick); // Habilita o clique novamente
+            });
+        }
+
         paresEncontrados = 0; // Reinicia o contador de pares
         primeiraCarta = null; // Reinicia a carta virada
         bloqueio = false; // Libera cliques novamente
@@ -119,14 +149,23 @@ function virarCarta(carta) {
 }
 
 function embaralharCartas(cartas) {
-    for (let i = cartas.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        cartas[i].parentNode.insertBefore(cartas[j], cartas[i]);
+    const cartasArray = Array.from(cartas); // Cria um array das cartas
+    const shuffledArray = []; // Array para armazenar as cartas embaralhadas
+
+    while (cartasArray.length > 0) {
+        const randomIndex = Math.floor(Math.random() * cartasArray.length); // Gera um índice aleatório
+        shuffledArray.push(cartasArray[randomIndex]); // Adiciona a carta aleatória ao array embaralhado
+        cartasArray.splice(randomIndex, 1); // Remove a carta adicionada do array original
     }
+
+    // Substitui o conteúdo das cartas no DOM
+    shuffledArray.forEach(carta => {
+        carta.parentNode.appendChild(carta); // Reinsere as cartas na ordem embaralhada
+    });
 }
 
 function totalPares() {
-    return cartas.length / 2; // Divide por 2, pois cada par tem 2 cartas
+    return (cartasFacil ? cartasFacil.length : 0) / 2 + (cartasDificil ? cartasDificil.length : 0) / 2; // Conta os pares
 }
 
 function atualizarCronometro() {
@@ -145,9 +184,17 @@ function finalizarJogo() {
     document.getElementById('cronometro').textContent = "Tempo Esgotado!";
 
     // Desabilitar clique nas cartas após o tempo acabar
-    cartas.forEach(carta => {
-        carta.removeEventListener('click', handleCartaClick);
-    });
+    if (cartasFacil) {
+        cartasFacil.forEach(carta => {
+            carta.removeEventListener('click', handleCartaClick);
+        });
+    }
+
+    if (cartasDificil) {
+        cartasDificil.forEach(carta => {
+            carta.removeEventListener('click', handleCartaClick);
+        });
+    }
 
     // Oferecer opção de recomeçar
     if (confirm("Deseja jogar novamente?")) {
