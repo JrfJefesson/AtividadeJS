@@ -14,8 +14,7 @@
                 <select id="opcao">
                   <option value="7p"selected>Fácil</option>
                   <option value="14p">Difícil</option>
-                  <option value="7pcom">Jogar contra o computador (Fácil)</option>
-                  <option value="14pcom">Jogar contra o computador (Díficil)</option>
+                  <option value="7pcom">Jogar contra o computador</option>
                 </select>
                 <br><br>
                 <input class="btn" type="button" value="Jogar" onclick="iniciarJogo()"/>
@@ -104,31 +103,160 @@
                 
             </section>
             
-
-
-
-
-
         </div>
 
 
-        <div class = "tabuleiro" id="game-dificil" style="display:none;">
-            <h2 id = 'titulo1'>Jogo da memória modo dificil</h2>
-            <div id="game-board-dificil" class="game-board"></div>
+
+
+
+        <div class = "tabuleiroDificil" id="game-dificil" style="display:none;">
+
+            <section class="memory-game-dificil">
+
+                <div class="carta-dificil" data-framework="atleticomg-dificil"></div>
+                    <img class="frente-dificil" src="images/AtleticoMG.png" alt="Atlético MG" />
+                    <img class="verso-dificil" src="images/Capa.jpeg" alt="Verso da carta" />
+                </div>
+                <section class="memory-game-dificil">
+                    <div class="carta-dificil" data-framework="atleticomg-dificil"></div>
+                        <img class="frente-dificil" src="images/AtleticoMG.png" alt="Atlético MG" />
+                        <img class="verso-dificil" src="images/Capa.jpeg" alt="Verso da carta" />
+                </div>
+
+                <div class="carta-dificil" data-framework="atleticopr-dificil"></div>
+                    <img class="frente-dificil" src="images/AtleticoPR.png" alt="Atlético PR" />
+                    <img class="verso-dificil" src="images/Capa.jpeg" alt="Verso da carta" />
+                </div>
+                <div class="carta-dificil" data-framework="atleticopr-dificil"></div>
+                    <img class="frente-dificil" src="images/AtleticoPR.png" alt="Atlético PR" />
+                    <img class="verso-dificil" src="images/Capa.jpeg" alt="Verso da carta" />
+                </div>
+
+                <div class="carta-dificil" data-framework="bahia-dificil"></div>
+                    <img class="frente-dificil" src="images/Bahia.png" alt="Bahia" />
+                    <img class="verso-dificil" src="images/Capa.jpeg" alt="Verso da carta" />
+                </div>
+                <div class="carta-dificil" data-framework="bahia-dificil"></div>
+                    <img class="frente-dificil" src="images/Bahia.png" alt="Bahia" />
+                    <img class="verso-dificil" src="images/Capa.jpeg" alt="Verso da carta" />
+                </div>
+
+                <div class="carta-dificil" data-framework="botafogo-dificil"></div>
+                    <img class="frente-dificil" src="images/Botafogo.png" alt="Botafogo" />
+                    <img class="verso-dificil" src="images/Capa.jpeg" alt="Verso da carta" />
+                </div>
+                <div class="carta-dificil" data-framework="botafogo-dificil"></div>
+                    <img class="frente-dificil" src="images/Botafogo.png" alt="Botafogo" />
+                    <img class="verso-dificil" src="images/Capa.jpeg" alt="Verso da carta" />
+                </div>
+
+                <div class="carta-dificil" data-framework="corinthians-dificil"></div>
+                    <img class="frente-dificil" src="images/Corinthians.png" alt="Corinthians" />
+                    <img class="verso-dificil" src="images/Capa.jpeg" alt="Verso da carta" />
+                </div>
+                <div class="carta-dificil" data-framework="corinthians-dificil"></div>
+                    <img class="frente-dificil" src="images/Corinthians.png" alt="Corinthians" />
+                    <img class="verso-dificil" src="images/Capa.jpeg" alt="Verso da carta" />
+                </div>
+
+                <div class="carta-dificil" data-framework="cruzeiro-dificil"></div>
+                    <img class="frente-dificil" src="images/Cruzeiro.png" alt="Cruzeiro" />
+                    <img class="verso-dificil" src="images/Capa.jpeg" alt="Verso da carta" />
+                </div>
+                <div class="carta-dificil" data-framework="cruzeiro-dificil"></div>
+                    <img class="frente-dificil" src="images/Cruzeiro.png" alt="Cruzeiro" />
+                    <img class="verso-dificil" src="images/Capa.jpeg" alt="Verso da carta" />
+                </div>
+
+                <div class="carta-dificil" data-framework="flamengo-dificil"></div>
+                    <img class="frente-dificil" src="images/Flamengo.png" alt="Flamengo" />
+                    <img class="verso-dificil" src="images/Capa.jpeg" alt="Verso da carta" />
+                </div>
+                <div class="carta-dificil" data-framework="flamengo-dificil"></div>
+                    <img class="frente-dificil" src="images/Flamengo.png" alt="Flamengo" />
+                    <img class="verso-dificil" src="images/Capa.jpeg" alt="Verso da carta" />
+                </div>
+
+                <div class="carta-dificil" data-framework="fluminense-dificil"></div>
+                    <img class="frente-dificil" src="images/Fluminense.png" alt="Fluminense" />
+                    <img class="verso-dificil" src="images/Capa.jpeg" alt="Verso da carta" />
+                </div>
+                <div class="carta-dificil" data-framework="fluminense-dificil"></div>
+                    <img class="frente-dificil" src="images/Fluminense.png" alt="Fluminense" />
+                    <img class="verso-dificil" src="images/Capa.jpeg" alt="Verso da carta" />
+                </div>
+
+                <div class="carta-dificil" data-framework="fortaleza-dificil"></div>
+                    <img class="frente-dificil" src="images/Fortaleza.png" alt="Fortaleza" />
+                    <img class="verso-dificil" src="images/Capa.jpeg" alt="Verso da carta" />
+                </div>
+                <div class="carta-dificil" data-framework="fortaleza-dificil"></div>
+                    <img class="frente-dificil" src="images/Fortaleza.png" alt="Fortaleza" />
+                    <img class="verso-dificil" src="images/Capa.jpeg" alt="Verso da carta" />
+                </div>
+
+                <div class="carta-dificil" data-framework="gremio-dificil"></div>
+                    <img class="frente-dificil" src="images/Gremio.png" alt="Gremio" />
+                    <img class="verso-dificil" src="images/Capa.jpeg" alt="Verso da carta" />
+                </div>
+                <div class="carta-dificil" data-framework="gremio-dificil"></div>
+                    <img class="frente-dificil" src="images/Gremio.png" alt="Gremio" />
+                    <img class="verso-dificil" src="images/Capa.jpeg" alt="Verso da carta" />
+                </div>
+
+                <div class="carta-dificil" data-framework="internacional-dificil"></div>
+                    <img class="frente-dificil" src="images/Internacional.png" alt="Internacional" />
+                    <img class="verso-dificil" src="images/Capa.jpeg" alt="Verso da carta" />
+                </div>
+                <div class="carta-dificil" data-framework="internacional-dificil"></div>
+                    <img class="frente-dificil" src="images/Internacional.png" alt="Internacional" />
+                    <img class="verso-dificil" src="images/Capa.jpeg" alt="Verso da carta" />
+                </div>
+
+                <div class="carta-dificil" data-framework="palmeiras-dificil"></div>
+                    <img class="frente-dificil" src="images/Palmeiras.png" alt="Palmeiras" />
+                    <img class="verso-dificil" src="images/Capa.jpeg" alt="Verso da carta" />
+                </div>
+                <div class="carta-dificil" data-framework="palmeiras-dificil"></div>
+                    <img class="frente-dificil" src="images/Palmeiras.png" alt="Palmeiras" />
+                    <img class="verso-dificil" src="images/Capa.jpeg" alt="Verso da carta" />
+                </div>
+
+                <div class="carta-dificil" data-framework="saopaulo-dificil"></div>
+                    <img class="frente-dificil" src="images/Sao Paulo.png" alt="São Paulo" />
+                    <img class="verso-dificil" src="images/Capa.jpeg" alt="Verso da carta" />
+                </div>
+                <div class="carta-dificil" data-framework="saopaulo-dificil"></div>
+                    <img class="frente-dificil" src="images/Sao Paulo.png" alt="São Paulo" />
+                    <img class="verso-dificil" src="images/Capa.jpeg" alt="Verso da carta" />
+                </div>
+
+                <div class="carta-dificil" data-framework="vasco-dificil"></div>
+                    <img class="frente-dificil" src="images/Vasco.png" alt="Vasco"/>
+                    <img class="verso-dificil" src="images/Capa.jpeg" alt="Verso da carta" />
+                </div>
+                <div class="carta-dificil" data-framework="vasco-dificil"></div>
+                    <img class="frente-dificil" src="images/Vasco.png" alt="Vasco"/>
+                    <img class="verso-dificil" src="images/Capa.jpeg" alt="Verso da carta" />
+                </div>
+
+            </section>
         </div>
         
 
+
+
+
+
+
+
+
+
         <div class = "tabuleiro" id="game-facil-pc" style="display:none;">
-            <h2 id = 'titulo1'>Jogo da memória contra pc facil</h2>
+            <h2 id = 'titulo1'>Jogo da memória contra o PC</h2>
             <div id="game-board-pc-facil" class="game-board"></div>
 
         </div>
 
-
-
-        <div class = "tabuleiro" id="game-dificil-pc" style="display:none;">
-            <h2 id = 'titulo1'>Jogo da memória contra pc dificil</h2>
-            <div id="game-board-pc-dificil" class="game-board"></div>
-        </div>
     </body>
 </html>
