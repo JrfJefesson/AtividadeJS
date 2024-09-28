@@ -145,6 +145,8 @@ function virarCarta(carta) {
                     atualizarRanking();
                     if (confirm("Deseja jogar novamente?")) {
                         iniciarJogo(); // Reinicia o jogo
+                    } else{
+                        reiniciarJogo();
                     }
                 }, 500);
             }
@@ -209,9 +211,16 @@ function atualizarCronometro() {
 
 function finalizarJogo() {
     clearInterval(cronometroInterval); // Para o cronômetro
+
+    // Mensagem de alerta com pontuação final
     alert("Você perdeu! O tempo acabou.");
+    
+    // Pergunta se o jogador deseja jogar novamente
     if (confirm("Deseja jogar novamente?")) {
-        iniciarJogo(); // Reinicia o jogo
+        iniciarJogo(); // Chama a função para reiniciar o jogo
+    } else {
+        alert("Obrigado por jogar!"); // Mensagem opcional de agradecimento
+        reiniciarJogo(); // Reinicia para voltar ao menu principal
     }
 }
 
@@ -234,4 +243,21 @@ function salvarPontuacao() {
     // Ordena o ranking em ordem decrescente e mantém apenas as 20 maiores pontuações
     ranking.sort((a, b) => b.pontuacao - a.pontuacao);
     localStorage.setItem('ranking', JSON.stringify(ranking.slice(0, 20))); // Mantém as 20 melhores pontuações
+}
+
+function reiniciarJogo() {
+    // Oculta as áreas do jogo
+    document.getElementById('ranking-container').style.display = 'none';
+    document.getElementById('game-facil').style.display = 'none';
+    document.getElementById('game-dificil').style.display = 'none';
+    document.getElementById('game-facil-pc').style.display = 'none';
+
+    // Mostra a tela inicial novamente
+    document.getElementById('principal').style.display = 'block';
+
+    // Limpa o nome do jogador
+    nomeJogador = null;
+
+    // Reinicia as variáveis do jogo, se necessário
+    resetarCartas(); // Caso queira resetar cartas
 }
