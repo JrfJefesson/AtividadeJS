@@ -7,8 +7,15 @@ let cronometroInterval; // Para armazenar o intervalo do cronômetro
 let cartasFacil; // Para armazenar todas as cartas do modo fácil
 let cartasDificil; // Para armazenar todas as cartas do modo difícil
 let pontuacao = 0; // Variável para armazenar a pontuação
+let venceu = false;
 
 function iniciarJogo() {
+
+    // Limpar o intervalo se já existir
+    if (cronometroInterval) {
+        clearInterval(cronometroInterval);
+    }
+    venceu = false;
     document.getElementById('ranking-container').style.display = 'block';
     atualizarRanking();
     // Somente pedir o nome do jogador se ainda não tiver sido definido
@@ -143,6 +150,7 @@ function virarCarta(carta) {
                     calcularPontuacao(); // Calcula a pontuação antes de finalizar
                     alert("Você ganhou! Pontuação: " + pontuacao);
                     atualizarRanking();
+                    venceu = true;
                     if (confirm("Deseja jogar novamente?")) {
                         iniciarJogo(); // Reinicia o jogo
                     } else{
@@ -202,11 +210,12 @@ function atualizarCronometro() {
             document.getElementById('cronometro-dificil').textContent = tempoRestante;
         }
     }
+    
 
-    if (tempoRestante === 0) {
+    if (tempoRestante === 0 && venceu === false) {
         clearInterval(cronometroInterval);
         finalizarJogo();
-    }
+    } 
 }
 
 function finalizarJogo() {
@@ -269,7 +278,7 @@ function reiniciarJogo() {
     if (document.getElementById('principal')) {
         document.getElementById('principal').style.display = 'flex';
     }
-    tempoRestante = -1;
+    tempoConcluido = true;
     nomeJogador = null;
 
     // Reinicia as variáveis do jogo, se necessário
