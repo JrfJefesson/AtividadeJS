@@ -11,6 +11,14 @@ let venceu = false;
 
 function iniciarJogo() {
 
+     // Zera variáveis relevantes
+     cartasDificil = 0;
+     cartasFacil = 0;
+     paresEncontrados = 0; // Reinicia a contagem de pares
+     primeiraCarta = null; // Reseta a primeira carta
+     bloqueio = false; // Libera cliques
+     pontuacao = 0; // Reseta a pontuação
+             
     // Limpar o intervalo se já existir
     if (cronometroInterval) {
         clearInterval(cronometroInterval);
