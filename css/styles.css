@@ -180,3 +180,47 @@ body {
 #ranking-container {
     display: none; /* Oculta o contêiner do ranking inicialmente */
 }
+
+.memory-game-pc {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Centraliza as cartas */
+    max-width: 800px; /* Ajuste conforme necessário */
+    margin: auto; /* Centraliza o tabuleiro */
+}
+
+.carta-pc {
+    position: relative; /* Define o contêiner para o posicionamento absoluto */
+    width: 100px; /* Largura da carta */
+    height: 140px; /* Altura da carta */
+    margin: 10px; /* Espaçamento entre as cartas */
+    cursor: pointer;
+}
+
+.carta-pc img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    transition: transform 0.5s;
+    backface-visibility: hidden; /* Impede a visualização da parte de trás */
+}
+
+.carta-pc .verso-pc {
+    transform: rotateY(0deg); /* O verso fica virado para o jogador */
+}
+
+.carta-pc .frente-pc {
+    transform: rotateY(180deg); /* A frente fica virada para trás */
+}
+
+/* Quando a carta é virada */
+.carta-pc.virada .frente-pc {
+    transform: rotateY(0deg); /* Mostra a frente */
+}
+
+.carta-pc.virada .verso-pc {
+    transform: rotateY(180deg); /* Esconde o verso */
+}
+

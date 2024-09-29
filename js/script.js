@@ -48,7 +48,6 @@ function iniciarJogo() {
 
     // Verificar qual dificuldade foi escolhida
     if (dificuldade === '7p') {
-        console.log('Jogo fácil selecionado');
         tempoRestante = 60;
         document.getElementById('cronometro').textContent = tempoRestante;
 
@@ -64,7 +63,6 @@ function iniciarJogo() {
         });
 
     } else if (dificuldade === '14p') {
-        console.log('Jogo difícil selecionado');
         tempoRestante = 120; // Altera o tempo para 90 segundos
         document.getElementById('cronometro-dificil').textContent = tempoRestante;
 
@@ -81,8 +79,7 @@ function iniciarJogo() {
         });
 
     } else if (dificuldade === '7pcom') {
-        console.log('Jogo contra o computador (Fácil) selecionado');
-        document.getElementById('game-facil-pc').style.display = 'block';    
+        document.getElementById('game-pc').style.display = 'block';    
     }
 }
 
