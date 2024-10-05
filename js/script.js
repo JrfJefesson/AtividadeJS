@@ -1,42 +1,42 @@
-let primeiraCarta = null; // Para armazenar a primeira carta virada
-let bloqueio = false; // Para evitar múltiplos cliques enquanto as cartas estão viradas
-let paresEncontrados = 0; // Para contar os pares encontrados
-let nomeJogador = ''; // Variável global para armazenar o nome do jogador
-let tempoRestante = 0; // Tempo em segundos
-let cronometroInterval; // Para armazenar o intervalo do cronômetro
-let cartasFacil; // Para armazenar todas as cartas do modo fácil
-let cartasDificil; // Para armazenar todas as cartas do modo difícil
-let pontuacao = 0; // Variável para armazenar a pontuação
+// Variáveis
+let primeiraCarta = null; 
+let bloqueio = false; 
+let paresEncontrados = 0; 
+let nomeJogador = ''; 
+let tempoRestante = 0; 
+let cronometroInterval; 
+let cartasFacil; 
+let cartasDificil; 
+let pontuacao = 0; 
 let venceu = false;
 
 function iniciarJogo() {
 
-     // Zera variáveis relevantes
+     // Resetar variaveis
      cartasDificil = 0;
      cartasFacil = 0;
-     paresEncontrados = 0; // Reinicia a contagem de pares
-     primeiraCarta = null; // Reseta a primeira carta
-     bloqueio = false; // Libera cliques
-     pontuacao = 0; // Reseta a pontuação
+     paresEncontrados = 0; 
+     primeiraCarta = null; 
+     bloqueio = false; 
+     pontuacao = 0; 
              
-    // Limpar o intervalo se já existir
+    // Zerar o tempo
     if (cronometroInterval) {
         clearInterval(cronometroInterval);
     }
     venceu = false;
     document.getElementById('ranking-container').style.display = 'block';
     atualizarRanking();
-    // Somente pedir o nome do jogador se ainda não tiver sido definido
+    // Somente pedir o nome do jogador se ainda não tiver sido escolhido
     if (!nomeJogador) {
         nomeJogador = prompt("Digite seu nome:");
     }
 
     document.getElementById('nome-jogador').textContent = "Jogador: " + nomeJogador;
 
-    // Esconder os elementos atuais
     document.getElementById('principal').style.display = 'none';
-    
-    // Capturar o valor selecionado no campo <select>
+
+    //Armazena a dificuldade escolhida
     const dificuldade = document.getElementById('opcao').value;
 
     // Esconder todos os tabuleiros
@@ -46,34 +46,31 @@ function iniciarJogo() {
     // Resetar as cartas ao iniciar um novo jogo
     resetarCartas();
 
-    // Verificar qual dificuldade foi escolhida
     if (dificuldade === '7p') {
         tempoRestante = 60;
         document.getElementById('cronometro').textContent = tempoRestante;
 
-        // Iniciar o cronômetro
+        // Inicia o cronômetro
         cronometroInterval = setInterval(atualizarCronometro, 1000);
         document.getElementById('game-facil').style.display = 'block';
 
-        cartasFacil = document.querySelectorAll('.carta'); // Seleciona todas as cartas do modo fácil
+        cartasFacil = document.querySelectorAll('.carta'); 
 
-        // Adiciona evento de clique nas cartas do modo fácil
         cartasFacil.forEach(carta => {
             carta.addEventListener('click', handleCartaClick);
         });
 
     } else if (dificuldade === '14p') {
-        tempoRestante = 120; // Altera o tempo para 90 segundos
+        tempoRestante = 120; 
         document.getElementById('cronometro-dificil').textContent = tempoRestante;
 
-        // Iniciar o cronômetro
+        // Inicia o cronômetro
         cronometroInterval = setInterval(atualizarCronometro, 1000);
         
         document.getElementById('game-dificil').style.display = 'block';
 
-        cartasDificil = document.querySelectorAll('.carta-dificil'); // Seleciona todas as cartas do modo difícil
+        cartasDificil = document.querySelectorAll('.carta-dificil');
 
-        // Adiciona evento de clique nas cartas do modo difícil
         cartasDificil.forEach(carta => {
             carta.addEventListener('click', handleCartaClick);
         });
@@ -85,72 +82,73 @@ function resetarCartas() {
     // Reseta as cartas do modo fácil
     if (cartasFacil) {
         cartasFacil.forEach(carta => {
-            carta.classList.remove('virada'); // Volta a imagem de verso
-            carta.removeEventListener('click', handleCartaClick); // Remove o evento para prevenir cliques durante o reset
+            carta.classList.remove('virada'); 
+            carta.removeEventListener('click', handleCartaClick); /
         });
     }
 
     // Reseta as cartas do modo difícil
     if (cartasDificil) {
         cartasDificil.forEach(carta => {
-            carta.classList.remove('virada'); // Volta a imagem de verso
-            carta.removeEventListener('click', handleCartaClick); // Remove o evento para prevenir cliques durante o reset
+            carta.classList.remove('virada'); 
+            carta.removeEventListener('click', handleCartaClick); 
         });
     }
 
     // Após todas serem resetadas, embaralha as cartas e habilita o clique
     setTimeout(() => {
         if (cartasFacil) {
-            embaralharCartas(cartasFacil); // Embaralha as cartas do modo fácil
+            embaralharCartas(cartasFacil); 
             cartasFacil.forEach(carta => {
-                carta.addEventListener('click', handleCartaClick); // Habilita o clique novamente
+                carta.addEventListener('click', handleCartaClick); 
             });
         }
 
         if (cartasDificil) {
-            embaralharCartas(cartasDificil); // Embaralha as cartas do modo difícil
+            embaralharCartas(cartasDificil); 
             cartasDificil.forEach(carta => {
-                carta.addEventListener('click', handleCartaClick); // Habilita o clique novamente
+                carta.addEventListener('click', handleCartaClick); 
             });
         }
 
-        paresEncontrados = 0; // Reinicia o contador de pares
-        primeiraCarta = null; // Reinicia a carta virada
-        bloqueio = false; // Libera cliques novamente
-        pontuacao = 0; // Reseta a pontuação
-    }, 500); // Pequeno atraso para garantir que o reset visual ocorra antes do embaralhamento
+        paresEncontrados = 0; 
+        primeiraCarta = null; 
+        bloqueio = false; 
+        pontuacao = 0; 
+    }, 500); 
 }
 
 // Esta função irá lidar com o clique nas cartas
 function handleCartaClick() {
-    virarCarta(this); // 'this' refere-se à carta clicada
+    virarCarta(this); 
 }
 
+// Função que vira a carta
 function virarCarta(carta) {
-    if (bloqueio || carta.classList.contains('virada')) return; // Evita cliques enquanto as cartas estão sendo viradas ou se a carta já estiver virada
+    if (bloqueio || carta.classList.contains('virada')) return;
 
-    carta.classList.add('virada'); // Vira a carta
+    carta.classList.add('virada'); 
 
     if (!primeiraCarta) {
         // Se não há carta selecionada, armazena a primeira
         primeiraCarta = carta;
     } else {
         // Se já existe uma carta selecionada
-        bloqueio = true; // Bloqueia novos cliques
+        bloqueio = true;
         const segundaCarta = carta;
 
         // Verifica se as cartas correspondem
         if (primeiraCarta.dataset.framework === segundaCarta.dataset.framework) {
             // Se as cartas correspondem, mantém viradas
-            paresEncontrados++; // Aumenta o contador de pares
-            primeiraCarta = null; // Reseta a primeira carta
-            bloqueio = false; // Libera novos cliques
+            paresEncontrados++; 
+            primeiraCarta = null; 
+            bloqueio = false; 
 
             // Verifica se todos os pares foram encontrados
             if (paresEncontrados === totalPares()) {
                 // Finaliza o jogo
                 setTimeout(() => {
-                    calcularPontuacao(); // Calcula a pontuação antes de finalizar
+                    calcularPontuacao(); 
                     alert("Você ganhou! Pontuação: " + pontuacao);
                     atualizarRanking();
                     venceu = true;
@@ -169,11 +167,12 @@ function virarCarta(carta) {
                 segundaCarta.classList.remove('virada');
                 primeiraCarta = null; // Reseta a primeira carta
                 bloqueio = false; // Libera novos cliques
-            }, 1000); // Tempo em milissegundos (1 segundo)
+            }, 1000); 
         }
     }
 }
 
+// Função que calcula a pontuação
 function calcularPontuacao() {
     if (document.getElementById('game-facil').style.display === 'block') {
         pontuacao = tempoRestante * 10; // 10 pontos por segundo
@@ -183,26 +182,28 @@ function calcularPontuacao() {
     salvarPontuacao();
 }
 
+// Função que embaralha as cartas
 function embaralharCartas(cartas) {
-    const cartasArray = Array.from(cartas); // Cria um array das cartas
-    const shuffledArray = []; // Array para armazenar as cartas embaralhadas
+    const cartasArray = Array.from(cartas); 
+    const shuffledArray = []; 
 
     while (cartasArray.length > 0) {
-        const randomIndex = Math.floor(Math.random() * cartasArray.length); // Gera um índice aleatório
-        shuffledArray.push(cartasArray[randomIndex]); // Adiciona a carta aleatória ao array embaralhado
-        cartasArray.splice(randomIndex, 1); // Remove a carta adicionada do array original
+        const randomIndex = Math.floor(Math.random() * cartasArray.length); 
+        shuffledArray.push(cartasArray[randomIndex]); 
+        cartasArray.splice(randomIndex, 1); 
     }
 
-    // Substitui o conteúdo das cartas no DOM
     shuffledArray.forEach(carta => {
-        carta.parentNode.appendChild(carta); // Reinsere as cartas na ordem embaralhada
+        carta.parentNode.appendChild(carta); 
     });
 }
 
+// Função que conta os pares
 function totalPares() {
-    return (cartasFacil ? cartasFacil.length : 0) / 2 + (cartasDificil ? cartasDificil.length : 0) / 2; // Conta os pares
+    return (cartasFacil ? cartasFacil.length : 0) / 2 + (cartasDificil ? cartasDificil.length : 0) / 2; 
 }
 
+// Função que atualiza o cronometro
 function atualizarCronometro() {
     tempoRestante--;
 
@@ -215,53 +216,53 @@ function atualizarCronometro() {
         }
     }
     
-
     if (tempoRestante === 0 && venceu === false) {
         clearInterval(cronometroInterval);
         finalizarJogo();
     } 
 }
 
+// Função para finalizar o jogo
 function finalizarJogo() {
-    clearInterval(cronometroInterval); // Para o cronômetro
+    clearInterval(cronometroInterval); 
 
-    // Mensagem de alerta com pontuação final
     alert("Você perdeu! O tempo acabou.");
     
-    // Pergunta se o jogador deseja jogar novamente
     if (confirm("Deseja jogar novamente?")) {
         resetarCartas();
-        iniciarJogo(); // Chama a função para reiniciar o jogo
+        iniciarJogo(); 
     } else {
-        alert("Obrigado por jogar!"); // Mensagem opcional de agradecimento
-        reiniciarJogo(); // Reinicia para voltar ao menu principal
+        alert("Obrigado por jogar!"); 
+        reiniciarJogo(); 
     }
 }
 
+// Função para atualizar o Rank
 function atualizarRanking() {
     const ranking = JSON.parse(localStorage.getItem('ranking')) || [];
     const rankingList = document.getElementById('ranking-list');
-    rankingList.innerHTML = ''; // Limpa a lista antes de adicionar os novos itens
+    rankingList.innerHTML = ''; 
 
     ranking.forEach(item => {
         const li = document.createElement('li');
-        li.textContent = `${item.nome}: ${item.pontuacao}`; // Formata a pontuação
-        rankingList.appendChild(li); // Adiciona o item à lista
+        li.textContent = `${item.nome}: ${item.pontuacao}`; 
+        rankingList.appendChild(li); 
     });
 }
 
+// Função para salvarPontuação
 function salvarPontuacao() {
     const ranking = JSON.parse(localStorage.getItem('ranking')) || [];
-    ranking.push({ nome: nomeJogador, pontuacao: pontuacao }); // Adiciona nova pontuação
+    ranking.push({ nome: nomeJogador, pontuacao: pontuacao }); 
 
-    // Ordena o ranking em ordem decrescente e mantém apenas as 20 maiores pontuações
+    // Mantém as 20 melhores pontuações
     ranking.sort((a, b) => b.pontuacao - a.pontuacao);
-    localStorage.setItem('ranking', JSON.stringify(ranking.slice(0, 20))); // Mantém as 20 melhores pontuações
+    localStorage.setItem('ranking', JSON.stringify(ranking.slice(0, 20))); 
 }
 
+// Função para reiniciar o Jogo
 function reiniciarJogo() {
 
-    // Oculta as áreas do jogo
     if (document.getElementById('ranking-container')) {
         document.getElementById('ranking-container').style.display = 'none';
     }
@@ -283,5 +284,5 @@ function reiniciarJogo() {
     tempoConcluido = true;
     nomeJogador = null;
 
-    resetarCartas(); // Caso queira resetar cartas
+    resetarCartas();
 }
