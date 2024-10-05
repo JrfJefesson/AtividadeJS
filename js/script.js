@@ -78,9 +78,7 @@ function iniciarJogo() {
             carta.addEventListener('click', handleCartaClick);
         });
 
-    } else if (dificuldade === '7pcom') {
-        document.getElementById('game-pc').style.display = 'block';    
-    }
+    } 
 }
 
 function resetarCartas() {
@@ -157,6 +155,7 @@ function virarCarta(carta) {
                     atualizarRanking();
                     venceu = true;
                     if (confirm("Deseja jogar novamente?")) {
+                        resetarCartas();
                         iniciarJogo(); // Reinicia o jogo
                     } else{
                         reiniciarJogo();
@@ -231,6 +230,7 @@ function finalizarJogo() {
     
     // Pergunta se o jogador deseja jogar novamente
     if (confirm("Deseja jogar novamente?")) {
+        resetarCartas();
         iniciarJogo(); // Chama a função para reiniciar o jogo
     } else {
         alert("Obrigado por jogar!"); // Mensagem opcional de agradecimento
@@ -260,7 +260,6 @@ function salvarPontuacao() {
 }
 
 function reiniciarJogo() {
-    console.log('Reiniciando o jogo...'); // Para verificar se a função está sendo chamada
 
     // Oculta as áreas do jogo
     if (document.getElementById('ranking-container')) {
@@ -275,9 +274,7 @@ function reiniciarJogo() {
     if (document.getElementById('game-pc')) {
         document.getElementById('game-pc').style.display = 'none';
     }
-    if (document.getElementById('nome-jogador')) {
-        document.getElementById('nome-jogador').style.display = 'none';
-    }
+
 
     // Mostra a tela inicial novamente
     if (document.getElementById('principal')) {
@@ -286,6 +283,5 @@ function reiniciarJogo() {
     tempoConcluido = true;
     nomeJogador = null;
 
-    // Reinicia as variáveis do jogo, se necessário
     resetarCartas(); // Caso queira resetar cartas
 }
